@@ -17,8 +17,6 @@ tokens
 LCURLY : '{';
 RCURLY : '}';
 
-ID : CHARS | KEYBOARD_KEYS | SPECIAL_CHARS | NUMBERS | LETTERS | HexadecimalConstant;
-
 KEYBOARD_KEYS
       : ('NUL' | 'SOH' | 'STX' | 'ETX' | 'EOT' |
         'ENQ' | 'ACK' | 'BEL' | 'BS' | 'TAB' | 'LF' | 'VT' |
@@ -26,29 +24,63 @@ KEYBOARD_KEYS
         'DC3' | 'DC4' | 'NAK' | 'SYN' | 'ETB' | 'CAN' | 'EM'|
         'SUB' | 'ESC' | 'FS' | 'GS' | 'RS' | 'US' | 'SPACE');
 
-CHARS
-      : ('\'' SPECIAL_CHARS '\'' | '\'' NUMBERS '\'' | '\'' LETTERS '\'')
+TOKENS
+    : TOKEN_WORDS+
+    ;
+
+fragment    
+TOKEN_WORDS
+    : ('boolean' | 'callout' | 'class' | 'else' | 'false' |
+      'if' | 'int' | 'return' | 'true' | 'void' | 'for' |
+      'forpar' | 'break' | 'continue' | 'BOOLEAN' | 'CALLOUT' |
+      'CLASS' | 'ELSE' | 'FALSE' | 'IF' | 'INT' | 'RETURN' |
+      'TRUE' | 'VOID' | 'FOR' | 'FORPAR' | 'BREAK' | 'CONTINUE')
+    ;
+
+CHAR_VARIABLES
+      : ('\'' (CHARS | DIGITS) '\'')
       ;
 
-SPECIAL_CHARS: ('!' | '"' | '#' | '$' | '%' | '&' | '(' | '\'' |'\t' | '\\' | '\"');
-
-NUMBERS: [0-9]+ | '-' [1-9]+;
-LETTERS: ( 'a'..'z' | 'A'..'Z');
-WS_ : (' ' | '\n' ) -> skip;
-
-SL_COMMENT : '//' (~'\n')* '\n' -> skip;
-
-CHAR :
-  '\'' (ESC|~'\'') '\''
+STRINGS
+    : '\"' (ID | ' ' | NUMBERS) '\"'
+    ;
+ID
+  : CHARS+ NUMBERS*
   ;
 
-STRING
-    :   '"' (ESC|~'"')* '"'
+fragment
+CHARS
+      : SPECIAL_CHARS | LETTERS
+      ;
+
+fragment
+SPECIAL_CHARS
+      : ('!' | '"' | '#' | '$' | '%' | '&' | '(' | '_' | '.'| '\\')
+      ;
+ /* '\'' |'\t' | '\\' | '\"'); */
+
+ HEXADECIMALS
+     :   HexadecimalPrefix HexadecimalDigit+
+     ;
+
+fragment
+DIGITS
+    : [0-9]
     ;
 
-HexadecimalConstant
-    :   HexadecimalPrefix HexadecimalDigit+
+NUMBERS
+    :  DIGITS+ | '-' [1-9]+
     ;
+
+LETTERS
+    : ( 'a'..'z' | 'A'..'Z')
+    ;
+
+WS_
+    : (' ' | '\n' ) -> skip
+    ;
+
+SL_COMMENT : '//' (~'\n')* '\n' -> skip;
 
 fragment
 HexadecimalPrefix

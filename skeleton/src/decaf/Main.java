@@ -31,9 +31,27 @@ class Main {
 
 		        			switch (token.getType())
 		        			{
-		        			case DecafLexer.ID:
-		        				type = " IDENTIFIER";
+		        			case DecafLexer.STRINGS:
+		        				type = " STRING";
 		        				break;
+                  case DecafLexer.ID:
+  		        			type = " ID";
+  		        			break;
+                  case DecafLexer.CHAR_VARIABLES:
+  		        			type = " CHAR";
+  		        			break;
+                  case DecafLexer.NUMBERS:
+  		        			type = " NUMBER";
+  		        			break;
+                  case DecafLexer.LETTERS:
+  		        			type = " LETTER";
+  		        			break;
+                  case DecafLexer.HEXADECIMALS:
+  		        			type = " HEXADECIMAL";
+  		        			break;
+                  case DecafLexer.TOKENS:
+  		        			type = " TOKEN";
+  		        			break;
 		        			}
 		        			System.out.println (token.getLine() + type + " " + text);
 		        		}
