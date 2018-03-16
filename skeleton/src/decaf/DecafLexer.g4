@@ -59,6 +59,10 @@ SPECIAL_CHARS
       ;
  /* '\'' |'\t' | '\\' | '\"'); */
 
+BINARY
+    : [0..1]+
+    ;
+
  HEXADECIMALS
      :   HexadecimalPrefix HexadecimalDigit+
      ;

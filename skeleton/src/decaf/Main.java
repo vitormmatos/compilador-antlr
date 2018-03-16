@@ -52,6 +52,9 @@ class Main {
                   case DecafLexer.TOKENS:
   		        			type = " TOKEN";
   		        			break;
+                  case DecafLexer.BINARY:
+  		        			type = " BINARY";
+  		        			break;
 		        			}
 		        			System.out.println (token.getLine() + type + " " + text);
 		        		}
