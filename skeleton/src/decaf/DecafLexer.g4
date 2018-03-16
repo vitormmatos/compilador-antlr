@@ -28,7 +28,7 @@ TOKENS
     : TOKEN_WORDS+
     ;
 
-fragment    
+fragment
 TOKEN_WORDS
     : ('boolean' | 'callout' | 'class' | 'else' | 'false' |
       'if' | 'int' | 'return' | 'true' | 'void' | 'for' |
@@ -63,13 +63,28 @@ SPECIAL_CHARS
      :   HexadecimalPrefix HexadecimalDigit+
      ;
 
+ fragment
+ HexadecimalPrefix
+     :   '0' [xX]
+     ;
+
+ fragment
+ HexadecimalDigit
+     :   [0-9a-fA-F]
+     ;
+
+NUMBERS
+    :  DIGITS+ | '-' [1-9]+ |  FLOAT | '-' FLOAT
+    ;
+
+fragment
+FLOAT
+    : DIGITS+ '.' DIGITS+
+    ;
+
 fragment
 DIGITS
     : [0-9]
-    ;
-
-NUMBERS
-    :  DIGITS+ | '-' [1-9]+
     ;
 
 LETTERS
@@ -82,15 +97,6 @@ WS_
 
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;
 
-fragment
-HexadecimalPrefix
-    :   '0' [xX]
-    ;
-
-fragment
-HexadecimalDigit
-    :   [0-9a-fA-F]
-    ;
 
 fragment
 ESC :  '\\' ('n'|'"');
