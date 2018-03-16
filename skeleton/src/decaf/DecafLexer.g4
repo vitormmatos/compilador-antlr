@@ -60,7 +60,7 @@ SPECIAL_CHARS
  /* '\'' |'\t' | '\\' | '\"'); */
 
 BINARY
-    : [0..1]+
+    : '0' [bB] [0-1]+
     ;
 
  HEXADECIMALS
