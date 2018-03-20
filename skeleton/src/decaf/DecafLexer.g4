@@ -17,15 +17,15 @@ tokens
 LCURLY : '{';
 RCURLY : '}';
 
-KEYBOARD_KEYS
+/* KEYBOARD_KEYS
       : ('NUL' | 'SOH' | 'STX' | 'ETX' | 'EOT' |
         'ENQ' | 'ACK' | 'BEL' | 'BS' | 'TAB' | 'LF' | 'VT' |
         'FF' | 'CR' | 'SO' | 'SI' | 'DLE' | 'DC1' | 'DC2' |
         'DC3' | 'DC4' | 'NAK' | 'SYN' | 'ETB' | 'CAN' | 'EM'|
-        'SUB' | 'ESC' | 'FS' | 'GS' | 'RS' | 'US' | 'SPACE');
+        'SUB' | 'ESC' | 'FS' | 'GS' | 'RS' | 'US' | 'SPACE'); */
 
 TOKENS
-    : TOKEN_WORDS+
+    : '-'* SPECIAL_CHARS* TOKEN_WORDS+ '-'*
     ;
 
 fragment
@@ -38,26 +38,32 @@ TOKEN_WORDS
     ;
 
 CHAR_VARIABLES
-      : ('\'' (CHARS | DIGITS) '\'')
+      : ('\'' CHARS '\'')
       ;
 
 STRINGS
-    : '\"' (ID | ' ' | NUMBERS) '\"'
+    : '"' CHARS+ '"'
     ;
 ID
-  : CHARS+ NUMBERS*
+  : '_'* LETTERS+ ['_''-']* NUMBERS* '_'*
   ;
 
 fragment
-CHARS
-      : SPECIAL_CHARS | LETTERS
+SPECIAL_CHARS
+      : ('!' | '"' | '#' | '$' | '%' | '&' | '(' | '_' | '.')
       ;
 
 fragment
-SPECIAL_CHARS
-      : ('!' | '"' | '#' | '$' | '%' | '&' | '(' | '_' | '.'| '\\')
-      ;
- /* '\'' |'\t' | '\\' | '\"'); */
+CHARS
+    :   ~[\\\r\n]
+    | EscapeSequence
+    ;
+
+fragment
+EscapeSequence
+        :   '\\' ['"?abfnrtv\\']
+        ;
+
 
 BINARY
     : '0' [bB] [0-1]+
@@ -78,11 +84,15 @@ BINARY
      ;
 
 NUMBERS
-    :  DIGITS+ | '-' [1-9]+ |  FLOAT | '-' FLOAT
+    :  DIGITS+ | '-' [1-9]+
+    ;
+
+FLOAT
+    : FLOATSEQUENCE | '-' FLOATSEQUENCE
     ;
 
 fragment
-FLOAT
+FLOATSEQUENCE
     : DIGITS+ '.' DIGITS+
     ;
 
@@ -91,12 +101,13 @@ DIGITS
     : [0-9]
     ;
 
+fragment
 LETTERS
     : ( 'a'..'z' | 'A'..'Z')
     ;
 
 WS_
-    : (' ' | '\n' ) -> skip
+    : (' ' | '\n' | '\t') -> skip
     ;
 
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;

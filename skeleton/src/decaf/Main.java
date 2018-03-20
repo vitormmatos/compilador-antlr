@@ -43,8 +43,8 @@ class Main {
                   case DecafLexer.NUMBERS:
   		        			type = " NUMBER";
   		        			break;
-                  case DecafLexer.LETTERS:
-  		        			type = " LETTER";
+                  case DecafLexer.FLOAT:
+  		        			type = " FLOAT";
   		        			break;
                   case DecafLexer.HEXADECIMALS:
   		        			type = " HEXADECIMAL";
@@ -55,7 +55,7 @@ class Main {
                   case DecafLexer.BINARY:
   		        			type = " BINARY";
   		        			break;
-		        			}
+		        			 }
 		        			System.out.println (token.getLine() + type + " " + text);
 		        		}
 		        		done = true;
