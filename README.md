@@ -1,8 +1,13 @@
 # compilador-antlr
 
-## Como testar o analisador léxico:
+## Como testar o lexer:
 
 $ ant -f skeleton && java -jar skeleton/dist/Compiler.jar -target scan -debug scanner/arquivo_teste
+
+## Como testar o parser:
+
+ant -f skeleton && java -jar skeleton/dist/Compiler.jar -target parser -debug parser/arquivo_teste
+
 
 ## Como compilar e gerar uma árvore da gramática C.g4:
 
