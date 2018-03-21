@@ -24,6 +24,13 @@ RCURLY : '}';
         'DC3' | 'DC4' | 'NAK' | 'SYN' | 'ETB' | 'CAN' | 'EM'|
         'SUB' | 'ESC' | 'FS' | 'GS' | 'RS' | 'US' | 'SPACE'); */
 
+OPERATOR
+    : ( '+' |'++' | '-' | '--' | '*' | '/' | '<' | '>' |
+        '<=' | '>=' | '=' | '+=' | '-=' | '*=' | '/=' |
+        '==' | '!=' | '&&' | '||' | '(' | ')' | ';' |
+        ':' | ',' | '[' | ']' | '{' | '}')
+    ;
+
 TOKENS
     : '-'* SPECIAL_CHARS* TOKEN_WORDS+ '-'*
     ;
@@ -45,7 +52,7 @@ STRINGS
     : '"' CHARS+ '"'
     ;
 ID
-  : '_'* LETTERS+ ['_''-']* NUMBERS* '_'*
+  : '_'* LETTER+ ['_''-']* NUMBERS* '_'*
   ;
 
 fragment
@@ -102,7 +109,7 @@ DIGITS
     ;
 
 fragment
-LETTERS
+LETTER
     : ( 'a'..'z' | 'A'..'Z')
     ;
 

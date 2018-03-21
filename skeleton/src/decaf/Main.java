@@ -55,6 +55,9 @@ class Main {
                   case DecafLexer.BINARY:
   		        			type = " BINARY";
   		        			break;
+                  case DecafLexer.OPERATOR:
+  		        			type = " OPERATOR";
+  		        			break;
 		        			 }
 		        			System.out.println (token.getLine() + type + " " + text);
 		        		}
