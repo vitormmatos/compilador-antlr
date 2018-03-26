@@ -24,11 +24,30 @@ RCURLY : '}';
         'DC3' | 'DC4' | 'NAK' | 'SYN' | 'ETB' | 'CAN' | 'EM'|
         'SUB' | 'ESC' | 'FS' | 'GS' | 'RS' | 'US' | 'SPACE'); */
 
+FLOAT
+    : FLOATSEQUENCE | NegativeOP FLOATSEQUENCE
+    ;
+
+fragment
+FLOATSEQUENCE
+    : DIGITS+ '.' DIGITS+
+    ;
+
+fragment
+DIGITS
+    : [0-9]
+    ;
+
 OPERATOR
-    : ( '+' |'++' | '-' | '--' | '*' | '/' | '<' | '>' |
+    : ( '+' |'++' | NegativeOP | '--' | '*' | '/' | '<' | '>' |
         '<=' | '>=' | '=' | '+=' | '-=' | '*=' | '/=' |
         '==' | '!=' | '&&' | '||' | '(' | ')' | ';' |
         ':' | ',' | '[' | ']' | '{' | '}')
+    ;
+
+fragment
+NegativeOP
+    : '-'
     ;
 
 TOKENS
@@ -92,20 +111,6 @@ BINARY
 
 NUMBERS
     :  DIGITS+ | '-' [1-9]+
-    ;
-
-FLOAT
-    : FLOATSEQUENCE | '-' FLOATSEQUENCE
-    ;
-
-fragment
-FLOATSEQUENCE
-    : DIGITS+ '.' DIGITS+
-    ;
-
-fragment
-DIGITS
-    : [0-9]
     ;
 
 fragment
