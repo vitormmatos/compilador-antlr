@@ -25,14 +25,14 @@ RCURLY : '}';
         'SUB' | 'ESC' | 'FS' | 'GS' | 'RS' | 'US' | 'SPACE'); */
 
 OPERATOR
-    : ( '+' |'++' | '-' | '--' | '*' | '/' | '<' | '>' |
+    : ( '+' |'++' | NegativeOP | '--' | '*' | '/' | '<' | '>' |
         '<=' | '>=' | '=' | '+=' | '-=' | '*=' | '/=' |
         '==' | '!=' | '&&' | '||' | '(' | ')' | ';' |
         ':' | ',' | '[' | ']' | '{' | '}')
     ;
 
 TOKENS
-    : '-'* SPECIAL_CHARS* TOKEN_WORDS+ '-'*
+    : TOKEN_WORDS+
     ;
 
 fragment
@@ -91,7 +91,12 @@ BINARY
      ;
 
 NUMBERS
-    :  DIGITS+ | '-' [1-9]+
+    :  DIGITS+ | NegativeOP [1-9]+
+    ;
+
+fragment
+NegativeOP
+    : '-'
     ;
 
 FLOAT
