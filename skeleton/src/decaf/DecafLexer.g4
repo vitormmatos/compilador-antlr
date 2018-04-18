@@ -32,20 +32,13 @@ OPERATOR
     ;
 
 TOKENS
-    : TOKEN_WORDS+
-    ;
-
-fragment
-TOKEN_WORDS
     : ('boolean' | 'callout' | 'class' | 'else' | 'false' |
-      'if' | 'int' | 'return' | 'true' | 'void' | 'for' |
-      'forpar' | 'break' | 'continue' | 'BOOLEAN' | 'CALLOUT' |
-      'CLASS' | 'ELSE' | 'FALSE' | 'IF' | 'INT' | 'RETURN' |
-      'TRUE' | 'VOID' | 'FOR' | 'FORPAR' | 'BREAK' | 'CONTINUE')
+      'if' | 'int' | 'return' | 'true' | 'void' | 'for'
+      | 'break' | 'continue')
     ;
 
 CHAR_VARIABLES
-      : ('\'' CHARS '\'')
+      : ('\'' CHARS* '\'')
       ;
 
 STRINGS
@@ -62,7 +55,7 @@ SPECIAL_CHARS
 
 fragment
 CHARS
-    :   ~[\\\r\n]
+    :   ~[\\\r\n\']
     | EscapeSequence
     ;
 
