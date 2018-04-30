@@ -8,6 +8,16 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import java6035.tools.CLI.*;
 
 class Main {
+
+    private static String[] tokenStrings = {
+      "", "PROGRAM", "LCURLY", "RCURLY", "LBRACKET", "RBRACKET", "LPARENTHESIS",
+      "RPARENTHESIS", "COMMA", "SEMICOLON", "IF", "BOOLEAN", "BREAK", "CALLOUT", "CLASS",
+      "CONTINUE", "ELSE", "FOR", "INT", "RETURN", "VOID", "OP_ASSIGN", "OP_ARITH", "OP_REL",
+      "OP_EQ", "OP_COND", "BOOLEANLITERAL", "CHARLITERAL", "STRINGLITERAL", "ID", "ALPHA_NUM",
+      "NONZERODIGIT", "DIGIT", "HEX_PREFIX", "HEX_DIGIT", "BIN_DIGIT", "BIN_PREFIX", "MINUS",
+      "EXCLAMATION"
+    };
+
     public static void main(String[] args) {
         try {
         	CLI.parse (args, new String[0]);
@@ -26,40 +36,8 @@ class Main {
         			{
 		        		for (token=lexer.nextToken(); token.getType()!=Token.EOF; token=lexer.nextToken())
 		        		{
-		        			String type = "";
-		        			String text = token.getText();
-
-		        			switch (token.getType())
-		        			{
-		        			case DecafLexer.STRINGS:
-		        				type = " STRING";
-		        				break;
-                  case DecafLexer.ID:
-  		        			type = " ID";
-  		        			break;
-                  case DecafLexer.CHAR_VARIABLES:
-  		        			type = " CHAR";
-  		        			break;
-                  case DecafLexer.NUMBERS:
-  		        			type = " NUMBER";
-  		        			break;
-                  case DecafLexer.FLOAT:
-  		        			type = " FLOAT";
-  		        			break;
-                  case DecafLexer.HEXADECIMALS:
-  		        			type = " HEXADECIMAL";
-  		        			break;
-                  case DecafLexer.TOKENS:
-  		        			type = " TOKEN";
-  		        			break;
-                  case DecafLexer.BINARY:
-  		        			type = " BINARY";
-  		        			break;
-                  case DecafLexer.OPERATOR:
-  		        			type = " OPERATOR";
-  		        			break;
-		        			 }
-		        			System.out.println (token.getLine() + type + " " + text);
+		        			String type = tokenStrings[token.getType() -1];
+		        			System.out.println (token.getLine() + " " + type + " " + token.getText());
 		        		}
 		        		done = true;
         			} catch(Exception e) {
