@@ -18,7 +18,7 @@ field_decl: type ID (COMMA type ID)* SEMICOLON
 
 method_decl
     :
-      (( type | 'void' ) ID '(' ((type ID)+ ',')* ')' block)
+      (( type | VOID ) ID RPARENTHESIS ((type ID)+ COMMA)* LPARENTHESIS block)
     ;
 
 block: LCURLY var_decl* statement* RCURLY;
