@@ -1,3 +1,4 @@
+
 parser grammar DecafParser;
 
 @header {
@@ -10,127 +11,71 @@ options
   tokenVocab=DecafLexer;
 }
 
-program: CLASS PROGRAM LCURLY field_decl* method_decl* RCURLY EOF;
-
-field_decl: type ID (COMMA type ID)* SEMICOLON
-			| type ID LBRACKET int_literal RBRACKET (COMMA type ID LBRACKET int_literal RBRACKET)* SEMICOLON ;
+program: CS PG LCURLY field_decl*method_decl* RCURLY;
 
 
-method_decl
-    :
-      (( type | VOID ) ID RPARENTHESIS ((type ID)+ COMMA)* LPARENTHESIS block)
-    ;
+field_decl: type ID (VIRGULA par)* PONTOVIR|type ID LBRACKET int_literal RBRACKET (VIRGULA par LBRACKET int_literal RBRACKET)* PONTOVIR;
 
-block: LCURLY var_decl* statement* RCURLY;
 
-var_decl
-  : type ID (COMMA (type ID | ID))* SEMICOLON
-  ;
+method_decl: (type| VOID) ID LPARENT(par(VIRGULA par)*)? RPARENT block;
 
-type
-  : INT
-  | BOOLEAN
-  ;
+par:type ID;
 
-statement
-  : location assign_op expr SEMICOLON
-	| method_call SEMICOLON
-	| IF LPARENTHESIS expr RPARENTHESIS block (ELSE block)*
-	| FOR ID OP_ASSIGN expr COMMA expr block
-	| RETURN expr* SEMICOLON
-	| BREAK SEMICOLON
-	| CONTINUE SEMICOLON
-	| block ;
+block:LCURLY (var|statement)* RCURLY;
 
-assign_op
-  : OP_ASSIGN
-  ;
 
-method_call
-  : method_name LPARENTHESIS (expr (COMMA expr)*)* RPARENTHESIS
-	| CALLOUT LPARENTHESIS string_literal (COMMA callout_arg)* RPARENTHESIS
-  ;
+var: type ID (variaveis)*PONTOVIR;
+variaveis: VIRGULA ID;
 
-method_name
-  : ID
-  ;
+type: INT|BL;
 
-location
-  : ID
-  | ID LBRACKET expr RBRACKET
-  ;
+statement:location assign_op expr PONTOVIR
+		|method_call PONTOVIR
+		|SE LPARENT expr RPARENT block (ELSE block)?
+		|PARA ID assign_op expr VIRGULA expr block
+		|RT (expr)? PONTOVIR
+		|BREAK PONTOVIR
+		|CTN PONTOVIR
+		|block;
 
-expr
-  : location
-	| method_call
-	| literal
-	| expr bin_op expr
-	| MINUS expr
-	| EXCLAMATION expr
-	| LPARENTHESIS expr RPARENTHESIS
-  ;
+assign_op:ATRIBUICAO
+	 |DECREMENTO
+	 |INCREMENTO;
 
-callout_arg
-    : expr | string_literal
-    ;
+method_call:method_name LPARENT (expr(VIRGULA expr)*)? RPARENT
+	|CL LPARENT(string_literal(VIRGULA call_arg(VIRGULA call_arg)*)?) RPARENT;
 
-bin_op
-  : arith_op
-  | rel_op
-  | eq_op
-  | cond_op
-  ;
+method_name:ID;
 
-arith_op
-  : OP_ARITH
-  | MINUS
-  ;
+location: ID
+	  |ID LBRACKET expr RBRACKET;
 
-rel_op
-  : OP_REL
-  ;
+expr: location|method_call
+      |literal
+      |expr bin_op expr
+      |SUB expr
+      | EXCL expr
+      |LPARENT expr RPARENT;
 
-eq_op
-  : OP_EQ
-  ;
 
-cond_op
-  : OP_COND
-  ;
 
-literal
-  : int_literal
-  | char_literal
-  | bool_literal
-  ;
+call_arg: expr|string_literal;
 
-//Add binary later
-int_literal
-  : decimal_literal
-  | hex_literal
-  | bin_literal
-  ;
+bin_op: ar
+        |rel
+        |eq
+        |cond;
 
-decimal_literal
-  : DIGIT (DIGIT* | MINUS NONZERODIGIT+)
-  ;
+ar:MULT|DIV|SUB|SUM|REST|EXP;
+rel: MAIOR|MENOR|MAIORIG|MENORIG;
+eq: IGUALDADE|DIFERENTE;
+cond: AND|OR;
 
-bin_literal
-  : BIN_PREFIX BIN_DIGIT BIN_DIGIT*
-  ;
+literal: int_literal|char_literal|bool_literal;
 
-hex_literal
-   : HEX_PREFIX HEX_DIGIT HEX_DIGIT*
-   ;
-
-bool_literal
-  : BOOLEANLITERAL
-  ;
-
-string_literal
-  : STRINGLITERAL
-  ;
-
-char_literal
-  : CHARLITERAL
-  ;
+int_literal: dec|hex;
+dec: NPO;
+hex: HEXA;
+bool_literal: VD|FL;
+char_literal: CHARLITERAL;
+string_literal: STRINGLITERAL;

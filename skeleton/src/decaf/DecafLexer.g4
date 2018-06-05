@@ -14,131 +14,99 @@ tokens
   TK_class
 }
 
-PROGRAM: 'Program';
 LCURLY : '{';
 RCURLY : '}';
-LBRACKET: '[';
-RBRACKET: ']';
-LPARENTHESIS: '(';
-RPARENTHESIS: ')';
-COMMA: ',';
-SEMICOLON: ';';
-
-IF:'if';
-BOOLEAN : 'boolean';
-BREAK: 'break';
-CALLOUT: 'callout';
-CLASS: 'class';
-CONTINUE: 'continue';
-ELSE: 'else';
-FOR: 'for';
-INT: 'int';
-RETURN: 'return';
+LPARENT:'(';
+RPARENT:')';
+LBRACKET:'[';
+RBRACKET:']';
+PONTOVIR:';';
+VIRGULA :',';
+MULT:'*';
+DIV:'/';
+SUB: '-';
+SUM: '+';
+EXP:'^';
+REST:'%';
+EXCL:'!';
+AND: '&&';
+OR: '||';
+IGUALDADE:'==';
+DIFERENTE:'!=';
+MAIOR: '>';
+MENOR: '<';
+MAIORIG:'>=';
+MENORIG: '<=';
+INCREMENTO: '+=';
+DECREMENTO:'-=';
+ATRIBUICAO:'=';
+PG : 'Program';
+BL : 'boolean';
+CL : 'callout';
+CS : 'class';
+ELSE : 'else';
+SE : 'if';
+FL : 'false';
+INT : 'int';
+RT : 'return';
+VD : 'true';
 VOID: 'void';
+PARA : 'for';
+BREAK : 'break';
+CTN : 'continue';
 
-OP_ASSIGN
-      : '=' | '+=' | '-='
-      ;
+ESP: '#'|'$'|'&'|':'|'?'|'@'|'_'|'`'|'|'|'~';
+HEXA : '0x'('0'..'9'|'a'..'f'|'A'..'F')+;
+NPO : [0-9]+;
+CHARLITERAL: '\''(ESC|CHARC|ESP)'\'';
+STRINGLITERAL: '"' (ESC|CHARC|RCURLY|LPARENT|RPARENT|
+LBRACKET|
+RBRACKET|
+PONTOVIR|
+VIRGULA|
+MULT|
+DIV|
+SUB|
+SUM|
+EXP|
+REST|
+EXCL|
+AND|
+OR|
+IGUALDADE|
+DIFERENTE|
+MAIOR|
+MENOR|
+MAIORIG|
+MENORIG|
+INCREMENTO|
+DECREMENTO|
+ATRIBUICAO|
+PG|
+BL|
+CL|
+CS|
+ELSE|
+SE|
+FL|
+INT|
+RT|
+VD|
+VOID|
+PARA|
+BREAK|
+CTN|
+ESP|
+HEXA|
+NPO|
+LCURLY|'\\'|~('"'))*'"';
 
-OP_ARITH
-      : '+' | '-' | '*' | '/' | '%'
-      ;
-
-OP_REL
-    : '<' | '>' | '<=' | '>='
-    ;
-
-OP_EQ
-    : '==' | '!='
-    ;
-
-OP_COND
-    : '&&' | '||'
-    ;
-
-BOOLEANLITERAL
-    : 'true' | 'false'
-    ;
-
-CHARLITERAL
-      : '\'' CHARS* '\''
-      ;
-
-STRINGLITERAL
-    : '"' CHARS* '"'
-    ;
-
-ID
-  : ALPHA ALPHA_NUM*
-  ;
-
-ALPHA_NUM
-    : ALPHA | DIGIT
-    ;
-
-fragment
-ALPHA
-   : 'a'..'z' | 'A'..'Z'
-   ;
-
-NONZERODIGIT
-    : [1-9]
-    ;
-
-DIGIT
-   : [0-9]
-   ;
-
-HEX_PREFIX
-      :   '0' [xX]
-      ;
-
-HEX_DIGIT
-    : [0-9a-fA-F]
-    ;
-
-BIN_DIGIT
-    : [0-1]+
-    ;
-
-BIN_PREFIX
-    : '0' [bB]
-    ;
-
-MINUS
-    : '-'
-    ;
-
-EXCLAMATION
-  : '!'
-  ;
-
-/* FLOAT
-    : FLOATSEQUENCE | '-' FLOATSEQUENCE
-    ; */
-
-fragment
-FLOATSEQUENCE
-    : DIGIT+ '.' DIGIT+
-    ;
-
-fragment
-CHARS
-    :   ~[\\\r\n\']
-    | EscapeSequence
-    ;
-
-fragment
-EscapeSequence
-        :   '\\' ['"?abfnrtv\\']
-        ;
-
-WS_
-    : (' ' | '\n' | '\t') -> skip
-    ;
+ID: ('_'| CHARC)('_'|CHARC|NPO)*;
+WS_ : (' ' | '\n'|'\t') -> skip;
 
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;
 
-
-fragment
-ESC :  '\\' ('n'|'"');
+CHAR : '\''(' '..'!' | '#'..'&' | '('..'[' | ']'..'~' )'\'';
+STRING : '"' (ESC~'"')* '"';
+fragment CHARC:('a'..'z'|'A'..'Z'|'0'..'9');
+fragment ESC: '\\' ( 'r' | 'n' | 't' | '\'' | '"' | '\\') ;
