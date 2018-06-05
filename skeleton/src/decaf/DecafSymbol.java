@@ -13,18 +13,18 @@ import org.antlr.symtab.Symbol;
 import org.antlr.symtab.Type;
 
 public class DecafSymbol { // A generic programming language symbol
-    public static enum Type {tINVALID, tVOID, tINT, tFLOAT}
+  public static enum Type {tINVALID, tVOID, tINT, tFLOAT}
 
-    String name;      // All symbols at least have a name
-    Type type;
-    Scope scope;      // All symbols know what scope contains them.
+  String name;      // All symbols at least have a name
+  Type type;
+  Scope scope;      // All symbols know what scope contains them.
 
-    public DecafSymbol(String name) { this.name = name; }
-    public DecafSymbol(String name, Type type) { this(name); this.type = type; }
-    public String getName() { return name; }
+  public DecafSymbol(String name) { this.name = name; }
+  public DecafSymbol(String name, Type type) { this(name); this.type = type; }
+  public String getName() { return name; }
 
-    public String toString() {
-        if ( type!=Type.tINVALID ) return '<'+getName()+":"+type+'>';
-        return getName();
-    }
+  public String toString() {
+    if ( type!=Type.tINVALID ) return '<'+getName()+":"+type+'>';
+    return getName();
+  }
 }
