@@ -1,7 +1,7 @@
 package decaf;
 
 import java.io.*;
-//import antlr.Token;
+
 import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -95,7 +95,7 @@ class Main {
           JFrame frame = new JFrame("Antlr AST");
           JPanel panel = new JPanel();
           TreeViewer viewr = new TreeViewer(Arrays.asList(
-              parser.getRuleNames()),tree);
+          parser.getRuleNames()),tree);
           viewr.setScale(1.5);//scale a little
           panel.add(viewr);
           frame.add(panel);
@@ -132,7 +132,7 @@ class Main {
           JFrame frame = new JFrame("Antlr AST");
           JPanel panel = new JPanel();
           TreeViewer viewr = new TreeViewer(Arrays.asList(
-              parser.getRuleNames()),tree);
+          parser.getRuleNames()),tree);
           viewr.setScale(1.5);//scale a little
           panel.add(viewr);
           frame.add(panel);
