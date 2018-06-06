@@ -12,16 +12,13 @@ options
 
 program: CS PG LCURLY field_decl*method_decl* RCURLY;
 
-
 field_decl: type ID (VIRGULA par)* PONTOVIR|type ID LBRACKET int_literal RBRACKET (VIRGULA par LBRACKET int_literal RBRACKET)* PONTOVIR;
-
 
 method_decl: (type| VOID) ID LPARENT(par(VIRGULA par)*)? RPARENT block;
 
 par:  type ID;
 
 block:  LCURLY (var|statement)* RCURLY;
-
 
 var: type ID (variaveis)*PONTOVIR;
 variaveis: VIRGULA ID;
