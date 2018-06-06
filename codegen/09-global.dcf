@@ -1,0 +1,15 @@
+class Program
+{
+    int a = 1;
+    int b, c;
+
+    void main()
+    {
+        a = 10;
+        b = 5;
+
+        c = a + b;
+
+        callout("printf", "%d + %d = %d (15)\n", a, b, c);
+    }
+}

@@ -11,13 +11,13 @@
   <property name="lib"     location="lib"     />
   <!-- Binaries for tools, etc. -->
   <property name="bin"     location="bin"     />
-
+  
   <!-- We rely on ANTLR 4.5.3  -->
-
-  <!-- Build up a path structure for a classpath
-       that includes the binaries (jars) in bin/ and
-       the existing classpath.  Not used now,
-       because the jflex and cup task define their own cp,
+  
+  <!-- Build up a path structure for a classpath 
+       that includes the binaries (jars) in bin/ and 
+       the existing classpath.  Not used now, 
+       because the jflex and cup task define their own cp, 
        but could come in handly later. -->
   <path id="binaries">
     <pathelement location="${bin}" />
@@ -29,7 +29,7 @@
     <pathelement path="${classes}" />
   </path>
 
-  <!-- Build up a path structure for a classpath
+  <!-- Build up a path structure for a classpath 
        that includes the libraries and the existing classpath -->
   <path id="libraries">
     <pathelement location="${lib}" />
@@ -94,6 +94,7 @@
 
   <target name="jar" depends="compile">
     <jar jarfile="${dist}/Compiler.jar" basedir="${classes}">
+      <zipgroupfileset dir="lib" includes="symtab-1.0.8.jar" />
      <manifest>
        <attribute name="Main-Class" value="decaf.Main" />
        <!-- ANTLR runtime is needed for parsing! -->
@@ -105,7 +106,7 @@
 	<fileset dir="${lib}" includes="**/**.jar"/>
     </copy>
   </target>
-
+  
  <!-- to clean, delete everything in the java, classes, and dist
   directory -->
   <target name="clean">
